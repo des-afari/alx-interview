@@ -1,21 +1,26 @@
 #!/usr/bin/python3
+""" Module for Pascal's triangle """
+
+
 def pascal_triangle(n):
-    """
-    Returns a list of integers
-    representing the Pascal Triangle of n
-    returns empty list if n <= 0
-    """
+    """ Returns list of lists of ints representing Pascal's triangle of n """
+
     if n <= 0:
         return []
 
-    triangle = []
-    for i in range(n):
-        row = [1]
-        if triangle:
-            prev_row = triangle[-1]
-            for j in range(1, len(prev_row)):
-                row.append(prev_row[j - 1] + prev_row[j])
-            row.append(1)
-        triangle.append(row)
+    """ initialize an empty resulting array """
+    pascal = [[] for idx in range(n)]
 
-    return triangle
+    for li in range(n):
+        for col in range(li+1):
+            if(col < li):
+                if(col == 0):
+                    """ the first column is always set to 1 """
+                    pascal[li].append(1)
+                else:
+                    pascal[li].append(pascal[li-1][col] + pascal[li-1][col-1])
+            elif(col == li):
+                """ the diagonal is always set to 1 """
+                pascal[li].append(1)
+
+    return pascal
